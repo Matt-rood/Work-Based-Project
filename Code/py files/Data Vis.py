@@ -1,19 +1,8 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 # # Import the packages
-
-# In[1]:
-
-
 get_ipython().run_line_magic('run', '"settings.py"')
-
 get_ipython().run_line_magic('reload_ext', 'autoreload')
 get_ipython().run_line_magic('autoreload', '2')
 get_ipython().run_line_magic('config', "InlineBackend.figure_format = 'png'")
-
-
-# In[2]:
 
 
 # Create user defined funtions
@@ -63,16 +52,9 @@ def cumulatively_categorise(column, threshold = 0.75, return_categories_list = T
 #filepath = 'D:\\Schools Data\\Data\\'
 filepath = 'C:\\Users\\matth\\OneDrive\\Documents\\University\\Schools Data\\Data\\'
 
-
-# #  
-
-# # Import the data tables, join them together and select the relevant columns
+# Import the data tables, join them together and select the relevant columns
 
 # ### 2010/2011
-
-# In[3]:
-
-
 # Import the KS4 information
 ks4_2010_2011 = pd.read_csv(filepath + '2010-2011\\england_ks4final.csv', low_memory = False)
 
@@ -124,10 +106,6 @@ ks4_2010_2011 = ks4_2010_2011[['LEA',
 
 
 # ### 2011/2012
-
-# In[ ]:
-
-
 # Import the KS4 information
 ks4_2011_2012 = pd.read_csv(filepath + '2011-2012\\england_ks4final.csv', low_memory = False)
 
@@ -179,11 +157,6 @@ ks4_2011_2012 = ks4_2011_2012[['LEA',
 
 
 # ### 2012/2013
-# 
-
-# In[ ]:
-
-
 # Import the KS4 information
 ks4_2012_2013 = pd.read_csv(filepath + '2012-2013\\england_ks4final.csv',  low_memory = False)
 
@@ -235,10 +208,6 @@ ks4_2012_2013 = ks4_2012_2013[['LEA',
 
 
 # ### 2013/2014
-
-# In[ ]:
-
-
 # Import the KS4 information
 ks4_2013_2014 = pd.read_csv(filepath + '2013-2014\\england_ks4final.csv', low_memory = False, encoding='latin-1')
 
@@ -290,10 +259,6 @@ ks4_2013_2014 = ks4_2013_2014[['LEA',
 
 
 # ### 2014/2015
-
-# In[ ]:
-
-
 # Import the KS4 information
 ks4_2014_2015 = pd.read_csv(filepath + '2014-2015\\england_ks4final.csv', low_memory = False)
 
@@ -344,10 +309,6 @@ ks4_2014_2015 = ks4_2014_2015[['URN',
 
 
 # ### 2015/2016
-
-# In[ ]:
-
-
 # Import the KS4 information
 ks4_2015_2016 = pd.read_csv(filepath + '2015-2016\\england_ks4final.csv', low_memory = False)
 
@@ -399,10 +360,6 @@ ks4_2015_2016 = ks4_2015_2016[['LEA',
 
 
 # ### 2016/2017
-
-# In[ ]:
-
-
 # Import the KS4 information
 ks4_2016_2017 = pd.read_csv(filepath + '2016-2017\\england_ks4final.csv', low_memory = False)
 
@@ -454,10 +411,6 @@ ks4_2016_2017 = ks4_2016_2017[['LEA',
 
 
 # ### 2017/2018
-
-# In[ ]:
-
-
 # Import the KS4 information
 ks4_2017_2018 = pd.read_csv(filepath + '2017-2018\\england_ks4final.csv', low_memory = False)
 
@@ -509,10 +462,6 @@ ks4_2017_2018 = ks4_2017_2018[['LEA',
 
 
 # ### 2018/2019
-
-# In[ ]:
-
-
 # Import the KS4 information
 ks4_2018_2019 = pd.read_csv(filepath + '2018-2019\\england_ks4final.csv', low_memory = False)
 
@@ -561,14 +510,7 @@ ks4_2018_2019 = ks4_2018_2019[['URN',
                                'PTFSM6CLA1A', 
                                'Pupil:     Teacher Ratio']]
 
-
-# #  
-
-# # Now all of the tables have been created, I need to rename all of the columns so they can be stacked
-
-# In[ ]:
-
-
+ # Now all of the tables have been created, I need to rename all of the columns so they can be stacked
 # 2013/14
 dict = {'PTAC5EM_PTQ' : 'PTAC5EM',
         'PTL2BASICS_PTQ': 'PTL2BASICS',
@@ -637,10 +579,6 @@ ks4_2018_2019.rename(columns=dict, inplace=True)
 
 
 # # Stack the tables and only keep records where all data is present
-
-# In[ ]:
-
-
 stacked_data = pd.concat([ks4_2011_2012, 
                           ks4_2012_2013,
                           ks4_2013_2014,
@@ -653,10 +591,6 @@ stacked_data = pd.concat([ks4_2011_2012,
 
 
 # ### Looking at the data it can be concluded that there are thousands of records with NULL records
-
-# In[ ]:
-
-
 # Impute categorical variables
 stacked_data["RELDENOM"].fillna("Does not apply", inplace = True) 
 stacked_data["ADMPOL"].fillna("Does not apply", inplace = True)
@@ -664,14 +598,7 @@ stacked_data["ADMPOL"].fillna("Does not apply", inplace = True)
 # Drop NULL values
 stacked_data_clean = stacked_data.dropna()
 
-
-# #  
-
 # # Import the Ofsted data and clean it
-
-# In[ ]:
-
-
 latest_ratings_2019 = pd.read_csv(filepath + 'Management_information_-_schools_Table1_-_31_August_2019.csv',
                                   encoding = 'cp1252',
                                   low_memory = False)
@@ -684,10 +611,6 @@ latest_ratings = pd.concat([latest_ratings_2019,
                             latest_ratings_2020], 
                            ignore_index = False)
 
-
-# In[ ]:
-
-
 # Replace spaces in column names with '_'
 latest_ratings.columns = latest_ratings.columns.str.replace(' ', '_')
 
@@ -698,10 +621,6 @@ latest_ratings = latest_ratings[(latest_ratings['Event_type_grouping'] == 'Schoo
 
 # Select only Secondary schoold
 latest_ratings = latest_ratings[(latest_ratings['Ofsted_phase'] == 'Secondary')]
-
-
-# In[ ]:
-
 
 latest_ratings = latest_ratings[['URN',
                                  'Inspection_end_date',
@@ -716,13 +635,7 @@ latest_ratings["Previous_category_of_concern"].fillna("No concern", inplace = Tr
 latest_ratings = latest_ratings.dropna()
 
 
-# #  
-
-# ## Extract the academic year from the inspection data to create a linkage year
-
-# In[ ]:
-
-
+ ## Extract the academic year from the inspection data to create a linkage year
 # Split the year column into day, month and year
 latest_ratings[["DAY", "MONTH", "YEAR"]] = latest_ratings["Inspection_end_date"].str.split("/", expand = True)
 
@@ -751,10 +664,6 @@ latest_ratings['LINKAGE_YEAR'] = latest_ratings['ACADEMIC_YEAR'] - 1
 
 
 # ## Join the most recent OFSTED rating to the academic data and drop rows with null values
-
-# In[ ]:
-
-
 final_table = pd.merge(stacked_data_clean, 
                        latest_ratings, 
                        how='left', 
@@ -776,12 +685,6 @@ final_table = final_table.drop(['ACADEMIC_YEAR_x',
 final_table = final_table.dropna()
 final_table = final_table.drop_duplicates()
 
-len(final_table)
-
-
-# In[ ]:
-
-
 # Import IDACI lookup 
 idaci_quintiles = pd.read_csv('C:\\Users\\roodm\\OneDrive - Office for National Statistics\\University\\Year 3\\Work Based Project\\2019-deprivation-by-postcode.csv')
 
@@ -800,17 +703,6 @@ final_table = final_table.drop(['POSTCODE',
                                 'Postcode'], 
                                axis=1)
 
-len(final_table)
-
-
-# #  
-
-# # Recoding Process
-
-# # Clean the data
-
-# In[4]:
-
 
 admission_policy = {'COMP' : "0", 
                     'SEL' : "1",
@@ -819,10 +711,6 @@ admission_policy = {'COMP' : "0",
                     'Does not apply' : '0'}  
 
 final_table = final_table.replace({"ADMPOL": admission_policy})
-
-
-# In[5]:
-
 
 remapped_reldenom = {'Does not apply' : 'Not religious',
                      'Roman Catholic': "Religious",
@@ -842,10 +730,6 @@ remapped_reldenom = {'Does not apply' : 'Not religious',
 
 final_table = final_table.replace({"RELDENOM": remapped_reldenom})
 
-
-# In[24]:
-
-
 previous_category_concern = {'SM' : "Previous concern", 
                             'SWK' : "Previous concern",
                             'NTI' : 'Previous concern',
@@ -853,19 +737,11 @@ previous_category_concern = {'SM' : "Previous concern",
 
 final_table = final_table.replace({"Previous_category_of_concern": previous_category_concern})
 
-
-# In[25]:
-
-
 school_types = {'Maintained school' : "Maintained School",
                'Academy (including Free Schools)' : 'All Academy Types',
                'Academy' : 'All Academy Types'} 
 
 final_table = final_table.replace({"MINORGROUP": school_types})
-
-
-# In[26]:
-
 
 # Remove any special characters such as a % or £ from values in the data
 final_table = final_table.apply(lambda x: x.astype(str).str.replace('%',''))
@@ -887,10 +763,6 @@ final_table = final_table.astype({'URN': 'float',
                                   'LEA' : 'float',
                                   'PTFSMCLA' : 'float'})                       
 
-
-# In[27]:
-
-
 dict = {'1.0': 'Outstanding', 
         '2.0': 'Good', 
         '3.0': 'Requires improvement',
@@ -899,10 +771,6 @@ dict = {'1.0': 'Outstanding',
 # Remap the values of the dataframe
 final_table['RECENT_SCORE'] = final_table['Overall_effectiveness'].map(dict)
 final_table['OLD_SCORE'] = final_table['Previous_full_inspection_overall_effectiveness'].map(dict)
-
-
-# In[67]:
-
 
 # Rename the new variables to follow the format of the others
 dict = {'Previous_category_of_concern' : 'OLD_CONCERN',
@@ -917,26 +785,13 @@ final_table = final_table[final_table['ADMPOL'].isin(vals)]
 
 final_table
 
-
-# #  
-
 # # Exploratory Data Analysis
-
 # ### The data that is used for the exploratory analysis should include the data that was available before null records were dropped, this is becuase not all rows dropped were fully null.
-
-# In[29]:
-
-
 sns.set(font_scale = 1.4)
 
 
 # # Discrete Variables
-
 # ### Ofsted Scores
-
-# In[30]:
-
-
 final_table['RECENT_SCORE'].value_counts().plot(kind='bar', width = 0.8, figsize=(20,7))
 
 plt.xticks(rotation = 0)
@@ -946,17 +801,11 @@ plt.title('Count of Unique Inspection Scores')
 plt.show()
 
 
-# In[31]:
-
-
 previous_counts = final_table['OLD_SCORE'].value_counts()
 current_counts = final_table['RECENT_SCORE'].value_counts()
 
 ofsted_comparisons = pd.DataFrame({'Previous': previous_counts,
-                                  'Recent' : current_counts})
-
-
-# In[33]:
+                                   'Recent' : current_counts})
 
 
 ofsted_comparisons.plot(kind = 'bar', width = 0.8, figsize=(20,7))
@@ -970,10 +819,6 @@ plt.show()
 
 
 # ## ISPOST16
-
-# In[34]:
-
-
 distribution = final_table.groupby(["ISPOST16"]).size().to_frame(name = 'count').reset_index()
 distribution['proportion'] = distribution['count']/sum(distribution['count'])*100
 
@@ -981,11 +826,6 @@ post_16 = {0.0 : "No",
           1.0 : "Yes"} 
 
 distribution = distribution.replace({"ISPOST16": post_16})
-
-
-# In[35]:
-
-
 # plot the graph
 fig, ax = plt.subplots(figsize=(15,7))
 
@@ -999,16 +839,9 @@ sns.barplot(data = distribution,
 
 plt.show()
 
-
-# In[43]:
-
-
+# Religious denomination
 distribution_religion = final_table.groupby(["RELDENOM"]).size().to_frame(name = 'count').reset_index()
 distribution_religion['proportion'] = distribution_religion['count']/sum(distribution_religion['count'])*100
-
-
-# In[44]:
-
 
 # plot the graph
 fig, ax = plt.subplots(figsize=(15,7))
@@ -1023,16 +856,9 @@ sns.barplot(data = distribution_religion,
 
 plt.show()
 
-
-# In[45]:
-
-
+# Previous inspection scores
 distribution_previous = final_table.groupby(["OLD_CONCERN"]).size().to_frame(name = 'count').reset_index()
 distribution_previous['proportion'] = distribution_previous['count']/sum(distribution_previous['count'])*100
-
-
-# In[46]:
-
 
 # plot the graph
 fig, ax = plt.subplots(figsize=(15,7))
@@ -1047,17 +873,9 @@ sns.barplot(data = distribution_previous,
 
 plt.show()
 
-
-# In[68]:
-
-
+# IDACI quintiles
 distribution_IDACI = final_table.groupby(["IDACI_DECILE"]).size().to_frame(name = 'count').reset_index()
 distribution_IDACI['proportion'] = distribution_IDACI['count']/sum(distribution_IDACI['count'])*100
-
-
-# In[69]:
-
-
 # plot the graph
 fig, ax = plt.subplots(figsize=(15,7))
 
@@ -1073,10 +891,6 @@ plt.show()
 
 
 # # Distributions of continuous variables - considering all
-
-# In[51]:
-
-
 fig, axes = plt.subplots(nrows=4, ncols=2,
                          figsize = (20 , 15))
 
@@ -1118,12 +932,7 @@ plt.show()
 
 
 # # Looking at links between variables and Ofsted Inspection scores
-
 # ### Comapring Inspections scores with A*-C attainment at KS4
-
-# In[52]:
-
-
 fig, ax = plt.subplots(figsize=(15,9))
 
 sns.boxplot(x = "RECENT_SCORE", 
@@ -1134,10 +943,6 @@ plt.show()
 
 
 # ### Comapring Inspections scores with Teacher Salary
-
-# In[53]:
-
-
 fig, ax = plt.subplots(figsize=(15,9))
 
 sns.boxplot(x = "RECENT_SCORE", 
@@ -1149,10 +954,6 @@ plt.show()
 
 
 # ### Comapring Inspections scores with Free School Meal (FSM) Eligibility
-
-# In[54]:
-
-
 fig, ax = plt.subplots(figsize=(15,8))
 
 sns.boxplot(x = "RECENT_SCORE", 
@@ -1164,10 +965,6 @@ plt.show()
 
 
 # ### IDACI Quintiles
-
-# In[70]:
-
-
 fig, ax = plt.subplots(figsize=(15,8))
 
 sns.boxplot(x = "RECENT_SCORE", 
@@ -1177,14 +974,7 @@ sns.boxplot(x = "RECENT_SCORE",
 
 plt.show()
 
-
-# #  
-
 # ##  Post-16 Education
-
-# In[58]:
-
-
 post16 = final_table[(final_table['ISPOST16'] == 1)]
 
 rating_mean_post16 = post16.groupby(["RECENT_SCORE"]).size().to_frame(name = 'count').reset_index()
@@ -1204,12 +994,7 @@ sns.barplot(data = rating_mean_post16,
 plt.show()
 
 
-# ##   
-
 # # LA maps. Join the data table to the la and region codes table and then a shapefile to plot
-
-# In[71]:
-
 
 # Import the la and region codes table
 regions_and_la = pd.read_csv('D:\\Schools Data\\Metadata\\2018-2019\\la_and_region_codes_meta.csv')
@@ -1227,22 +1012,10 @@ regions.rename(columns=dict,
                inplace=True)
 
 
-# In[72]:
-
-
 regions = regions.dropna()
-
-
-# In[73]:
-
-
-import geopandas as gpd
 
 shapefile_path = "D:\\UTLA Shapefiles\\Upper Local Authorities\\Upper Local Authorites.shp"
 utla = gpd.read_file(shapefile_path)
-
-
-# In[74]:
 
 
 shapefile_path = "D:\\LTLA Shapefiles\\LAD_DEC_2022_UK_BFC.shp"
@@ -1250,10 +1023,6 @@ ltla = gpd.read_file(shapefile_path)
 
 
 # ### Average Teacher Salary by Local Authority
-
-# In[63]:
-
-
 mean_salary = regions.groupby(['CTYNME'])['SALARY'].mean()
 
 mean_salary = utla.merge(mean_salary, 
@@ -1275,10 +1044,6 @@ plt.show()
 
 
 # ### IDACI Quintiles by Local Authority
-
-# In[75]:
-
-
 idaci_map = utla.merge(regions, 
                        on = 'CTYNME')
 
@@ -1299,14 +1064,7 @@ plt.title("Local Authority Heat Map Showing IDACI Quintile Distribution")
 
 plt.show()
 
-
-# #  
-
 # ### Ofsted Rating Trends
-
-# In[76]:
-
-
 rslt_df = latest_ratings[latest_ratings['ACADEMIC_YEAR'] != 2009] 
 rslt_df = rslt_df[rslt_df['ACADEMIC_YEAR'] != 2020] 
 
@@ -1337,10 +1095,6 @@ plt.xlabel("Year of Inspection")
 plt.ylabel("Average Ofsted Inspection Score")
 plt.show()
 
-
-# In[77]:
-
-
 # Frequency of inspections
 rslt_df = latest_ratings[latest_ratings['ACADEMIC_YEAR'] != 2009] 
 rslt_df = latest_ratings[latest_ratings['ACADEMIC_YEAR'] != 2020] 
@@ -1357,6 +1111,3 @@ plt.title("Total Number of Ofsted Inpections 2010-2019")
 plt.xlabel("Year of Inspection")
 plt.ylabel("Total Number of Inspections")
 plt.show()
-
-
-# ##  

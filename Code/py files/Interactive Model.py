@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 get_ipython().run_line_magic('run', '"settings.py"')
 
 import joblib
@@ -11,10 +5,6 @@ import joblib
 get_ipython().run_line_magic('reload_ext', 'autoreload')
 get_ipython().run_line_magic('autoreload', '2')
 get_ipython().run_line_magic('config', "InlineBackend.figure_format = 'png'")
-
-
-# In[2]:
-
 
 filepath = 'C:\\Users\\matth\\OneDrive\\Documents\\University\\Third Year\\Work Based Project\\Final\\'
 
@@ -405,14 +395,7 @@ def Interactive_model():
     time.sleep(2)
     print(f"Based upon the model we predict the the school will receive an {predictions} inspection rating (this is 69% accurate).\n")         
 
-
-# In[3]:
-
-
 Interactive_model()
-
-
-# In[ ]:
 
 
 

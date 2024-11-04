@@ -1,11 +1,4 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 # # Import packages
-
-# In[63]:
-
-
 get_ipython().run_line_magic('run', '"settings.py"')
 
 get_ipython().run_line_magic('reload_ext', 'autoreload')
@@ -14,12 +7,7 @@ get_ipython().run_line_magic('config', "InlineBackend.figure_format = 'png'")
 
 
 # # Create user defined funtions
-
 # ### Clean() - removes all string values from integer columns
-
-# In[104]:
-
-
 def Clean(df):
     for df in dataframes:
         for col in df.columns:
@@ -32,10 +20,6 @@ def Clean(df):
 
 
 # ### Join() - joins all academic years dataframes together
-
-# In[3]:
-
-
 def Join(df, df1, df2, df3, df4):
     new_df = df.merge(df1, on='URN', suffixes=('', '_remove'))\
     .merge(df2, on='URN', suffixes=('', '_remove'))\
@@ -44,11 +28,7 @@ def Join(df, df1, df2, df3, df4):
     return new_df
 
 
-# ### cumulatively_categorise() - deals with high cardinality categorical variables. From: https://towardsdatascience.com/dealing-with-features-that-have-high-cardinality-1c9212d7ff1b
-
-# In[4]:
-
-
+# ### cumulatively_categorise() - deals with high cardinality categorical variables. From: https://towardsdatascience.com/dealing-with-features-that-have-high-cardinality-1c9212d7ff1b #
 def cumulatively_categorise(column, threshold = 0.75, return_categories_list = True):
     threshold_value = int(threshold*len(column))
     categories_list = []
@@ -71,23 +51,12 @@ def cumulatively_categorise(column, threshold = 0.75, return_categories_list = T
 
 
 # ### State the file path
-
-# In[5]:
-
-
 #filepath = 'D:\\Schools Data\\Data\\'
 filepath = 'C:\\Users\\matth\\OneDrive\\Documents\\University\\Schools Data\\Data\\'
 
 
-# #  
-
 # # Import datasets
-
 # ### 2010-2011
-
-# In[102]:
-
-
 # Import the KS4 information
 ks4_2010_2011 = pd.read_csv(filepath + '2010-2011\\england_ks4final.csv', low_memory = False)
 
@@ -138,10 +107,6 @@ ks4_2010_2011 = ks4_2010_2011[['URN',
 
 
 # ### 2011-2012
-
-# In[105]:
-
-
 # Import the KS4 information
 ks4_2011_2012 = pd.read_csv(filepath + '2011-2012\\england_ks4final.csv', low_memory = False)
 
@@ -192,10 +157,6 @@ ks4_2011_2012 = ks4_2011_2012[['URN',
 
 
 # ### 2012-2013
-
-# In[8]:
-
-
 # Import the KS4 information
 ks4_2012_2013 = pd.read_csv(filepath + '2012-2013\\england_ks4final.csv',  low_memory = False)
 
@@ -246,10 +207,6 @@ ks4_2012_2013 = ks4_2012_2013[['URN',
 
 
 # ### 2013-2014
-
-# In[9]:
-
-
 # Import the KS4 information
 ks4_2013_2014 = pd.read_csv(filepath + '2013-2014\\england_ks4final.csv', low_memory = False, encoding='latin-1')
 
@@ -300,10 +257,6 @@ ks4_2013_2014 = ks4_2013_2014[['URN',
 
 
 # ### 2014-2015
-
-# In[10]:
-
-
 # Import the KS4 information
 ks4_2014_2015 = pd.read_csv(filepath + '2014-2015\\england_ks4final.csv', low_memory = False)
 
@@ -354,10 +307,6 @@ ks4_2014_2015 = ks4_2014_2015[['URN',
 
 
 # ### 2015-2016
-
-# In[11]:
-
-
 # Import the KS4 information
 ks4_2015_2016 = pd.read_csv(filepath + '2015-2016\\england_ks4final.csv', low_memory = False)
 
@@ -408,10 +357,6 @@ ks4_2015_2016 = ks4_2015_2016[['URN',
 
 
 # ### 2016-2017
-
-# In[12]:
-
-
 # Import the KS4 information
 ks4_2016_2017 = pd.read_csv(filepath + '2016-2017\\england_ks4final.csv', low_memory = False)
 
@@ -462,10 +407,6 @@ ks4_2016_2017 = ks4_2016_2017[['URN',
 
 
 # ### 2017-2018
-
-# In[13]:
-
-
 # Import the KS4 information
 ks4_2017_2018 = pd.read_csv(filepath + '2017-2018\\england_ks4final.csv', low_memory = False)
 
@@ -516,10 +457,6 @@ ks4_2017_2018 = ks4_2017_2018[['URN',
 
 
 # ### 2018-2019
-
-# In[14]:
-
-
 # Import the KS4 information
 ks4_2018_2019 = pd.read_csv(filepath + '2018-2019\\england_ks4final.csv', low_memory = False)
 
@@ -569,15 +506,8 @@ ks4_2018_2019 = ks4_2018_2019[['URN',
                                'Pupil:     Teacher Ratio']]
 
 
-# #  
-
-# # Data Cleaning
-
+# Data Cleaning
 # ### Renaming variables to ensure coherence across datasets and allow for joining
-
-# In[15]:
-
-
 # 2013/14
 dict = {'PTAC5EM_PTQ' : 'PTAC5EM',
         'PTL2BASICS_PTQ': 'PTL2BASICS',
@@ -644,14 +574,7 @@ dict = {'PT5EM_94': 'PTAC5EM',
        }
 ks4_2018_2019.rename(columns=dict, inplace=True)
 
-
-# #  
-
 # ### Stack the data tables
-
-# In[16]:
-
-
 stacked_data = pd.concat([ks4_2011_2012, 
                           ks4_2012_2013,
                           ks4_2013_2014,
@@ -664,25 +587,13 @@ stacked_data = pd.concat([ks4_2011_2012,
 
 
 # ### Impute RELDENOM and ADMPOL and remove rows with null values
-# 
-
-# In[17]:
-
-
 stacked_data["RELDENOM"].fillna("Does not apply", inplace = True)
 stacked_data["ADMPOL"].fillna("Does not apply", inplace = True)
 
 # Drop NULL values
 stacked_data_clean = stacked_data.dropna()
 
-
-# #  
-
 # # Import the Ofsted Data and clean it 
-
-# In[18]:
-
-
 latest_ratings_2019 = pd.read_csv(filepath + 'Management_information_-_schools_Table1_-_31_August_2019.csv',
                                   encoding = 'cp1252',
                                   low_memory = False)
@@ -696,9 +607,6 @@ latest_ratings = pd.concat([latest_ratings_2019,
                             ignore_index = False)
 
 
-# In[19]:
-
-
 # Create snake case
 latest_ratings.columns = latest_ratings.columns.str.replace(' ', '_')
 
@@ -709,9 +617,6 @@ latest_ratings = latest_ratings[(latest_ratings['Event_type_grouping'] == 'Schoo
 
 # Select only Secondary schools
 latest_ratings = latest_ratings[(latest_ratings['Ofsted_phase'] == 'Secondary')]
-
-
-# In[20]:
 
 
 # Select variables
@@ -730,10 +635,6 @@ latest_ratings = latest_ratings.dropna()
 
 
 # ## Extract the academic year from the inspection data to create a linkage year
-
-# In[21]:
-
-
 # Split the year column into day, month and year
 latest_ratings[["DAY", "MONTH", "YEAR"]] = latest_ratings["Inspection_end_date"].str.split("/", expand = True)
 
@@ -762,10 +663,6 @@ latest_ratings['LINKAGE_YEAR'] = latest_ratings['ACADEMIC_YEAR'] - 1
 
 
 # ## Join the most recent OFSTED rating to the academic data and drop rows with null values
-
-# In[22]:
-
-
 final_table = pd.merge(stacked_data_clean, 
                        latest_ratings, 
                        how='left', 
@@ -787,21 +684,10 @@ final_table = final_table.drop(['ACADEMIC_YEAR_x',
 final_table = final_table.dropna()
 final_table = final_table.drop_duplicates()
 
-len(final_table)
-
-
 # # Join IDACI Quintiles
-
-# In[ ]:
-
-
 # Extract the postcodes to CSV
 # postcodes = final_table[['POSTCODE']]
 # postcodes.to_csv('Postcodes.csv', index = False)
-
-
-# In[23]:
-
 
 # Import IDACI lookup 
 idaci_quintiles = pd.read_csv('C:\\Users\\matth\\OneDrive\\Documents\\University\\Third Year\\Work Based Project\\Final\\Code\\2019-deprivation-by-postcode.csv')
@@ -823,15 +709,7 @@ final_table = final_table.drop_duplicates()
 final_table = final_table.drop(['POSTCODE',
                                 'Postcode'], 
                                axis=1)
-
-
-# #  
-
 # # Create dummy variables for all categorical variables
-
-# In[24]:
-
-
 remapped_reldenom = {'Does not apply' : '0',
                      'Roman Catholic': "1",
                      'Church of England' : "1", 
@@ -848,20 +726,12 @@ remapped_reldenom = {'Does not apply' : '0',
 
 final_table = final_table.replace({"RELDENOM": remapped_reldenom})
 
-
-# In[25]:
-
-
 previous_category_concern = {'SM' : "1", 
                              'SWK' : "1",
                              'NTI' : '1',
                              'No concern' : '0'}  
 
 final_table = final_table.replace({"Previous_category_of_concern": previous_category_concern})
-
-
-# In[29]:
-
 
 admission_policy = {'COMP' : "0", 
                     'SEL' : "1",
@@ -870,26 +740,14 @@ admission_policy = {'COMP' : "0",
 
 final_table = final_table.replace({"ADMPOL": admission_policy})
 
-
-# In[30]:
-
-
 gender = {'Girls' : "0", 
           'Boys' : "0",
           'Mixed' : '1'}  
 
 final_table = final_table.replace({"GENDER": gender})
 
-
-# In[31]:
-
-
 final_table['NFTYPE'] = cumulatively_categorise(final_table['NFTYPE'], 
                                                 return_categories_list = False)
-
-
-# In[32]:
-
 
 # Filter to remove 'UK' from ADMPOL
 vals = ['0', '1']
@@ -904,16 +762,7 @@ final_table = pd.get_dummies(final_table,
 final_table = final_table.replace(to_replace = True,  value = 1) 
 final_table = final_table.replace(to_replace = False, value = 0) 
 
-final_table
-
-
-# #  
-
 # # Clean the Data
-
-# In[33]:
-
-
 # Remove any special characters such as a % or £ from values in the data
 final_table = final_table.apply(lambda x: x.astype(str).str.replace('%',''))
 final_table = final_table.apply(lambda x: x.astype(str).str.replace('£',''))
@@ -921,12 +770,6 @@ final_table = final_table.apply(lambda x: x.astype(str).str.replace(',',''))
 
 # Convert the data to a float data type
 final_table = final_table.astype(float)
-
-final_table
-
-
-# In[34]:
-
 
 # Rename the new variables to follow the format of the others
 dict = {'Overall_effectiveness': 'RECENT_SCORE', 
@@ -953,14 +796,8 @@ dict = {'Overall_effectiveness': 'RECENT_SCORE',
 final_table.rename(columns=dict,
                    inplace=True)
 
-final_table
-
 
 # # Data Validation
-
-# In[35]:
-
-
 final_table = final_table[(final_table['KS2APS'] > 0) &
                           (final_table['PTAC5EM'] > 0) &
                           (final_table['PTL2BASICS'] > 0)&
@@ -973,10 +810,6 @@ final_table = final_table[(final_table['KS2APS'] > 0) &
 
 
 # # Normalise the Data
-
-# In[36]:
-
-
 for col in final_table[['KS2APS',
                         'PTAC5EM',
                         'PTL2BASICS',
@@ -991,15 +824,6 @@ for col in final_table[['KS2APS',
     
     final_table[col] = (final_table[col] - final_table[col].mean()) / final_table[col].std()  
 
-pd.set_option('display.max_columns', None) 
-final_table
-
-
-# #  
-
-# In[37]:
-
-
 # Drop variables that will cause the variable trap
 dropped_columns = ['URN',
                    'ACC_NFTYPE_DUMMY',
@@ -1008,31 +832,15 @@ dropped_columns = ['URN',
 
 final_table = final_table.drop(columns = dropped_columns)
 
-
-# In[38]:
-
-
 # Create the target variable
 y = final_table.RECENT_SCORE
-
-
-# In[39]:
-
 
 # Create feature variables
 dropped_columns = ['RECENT_SCORE']
 X = final_table.drop(columns = dropped_columns)
 
-
-# In[40]:
-
-
 # Set the seed
 random_seed = 42
-
-
-# In[41]:
-
 
 # Select feature columns
 feature_cols = ['KS2APS', 
@@ -1069,36 +877,22 @@ feature_cols = ['KS2APS',
                 'IDACI_DECILE_10_DUMMY']
 
 
-# #  
-
 # # Create test train data
 # ### 3 sets are needed:
 # * One for base models
 # * One for grid search
 # * One for tuned models
-
-# In[42]:
-
-
 X_train_1, X_test_1, y_train_1, y_test_1 = train_test_split(X, 
                                                             y, 
                                                             random_state = random_seed,
                                                             test_size = 0.2, # 80% training and 20% test
                                                             stratify = y) # Uses stratified sampling
 
-
-# In[43]:
-
-
 X_train_2, X_test_2, y_train_2, y_test_2 = train_test_split(X, 
                                                             y, 
                                                             random_state = random_seed,
                                                             test_size = 0.2, # 80% training and 20% test
                                                             stratify = y) # Uses stratified sampling
-
-
-# In[44]:
-
 
 X_train_3, X_test_3, y_train_3, y_test_3 = train_test_split(X, 
                                                             y, 
@@ -1108,14 +902,8 @@ X_train_3, X_test_3, y_train_3, y_test_3 = train_test_split(X,
 
 
 # # Model 1: Decision Tree
-
 # https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier
-
 # ### Base Model
-
-# In[45]:
-
-
 # Create Decision Tree classifier
 unpruned_tree = DecisionTreeClassifier(random_state = random_seed)
 
@@ -1139,10 +927,6 @@ print("Accuracy scores:", scores)
 mean_accuracy = scores.mean()
 print("Mean accuracy:", round(mean_accuracy, 3) * 100 , '%')
 
-
-# In[46]:
-
-
 # Plot decision tree
 plt.figure(figsize=(20,10))
 
@@ -1154,10 +938,6 @@ plt.show()
 
 
 # ### Grid Search
-
-# In[49]:
-
-
 startTime = time.time()
 
 # Create Decision Tree classifier object
@@ -1208,10 +988,6 @@ print('Execution time in seconds: ' + str(executionTime))
 
 
 # ### Tuned Model
-
-# In[47]:
-
-
 # Create Decision Tree classifier object with pruning
 pruned_tree = DecisionTreeClassifier(ccp_alpha = 0,
                                      class_weight = None,
@@ -1243,10 +1019,6 @@ print("Accuracy scores:", scores)
 mean_accuracy = scores.mean()
 print("Mean accuracy:", round(mean_accuracy, 2) * 100 , '%')
 
-
-# In[48]:
-
-
 # Plot pruned decision tree
 plt.figure(figsize=(20,10))
 
@@ -1257,18 +1029,10 @@ plt.show()
 
 
 # ### Classification reports
-
-# In[49]:
-
-
 print('\tClassification Report for Base Decision Tree :\n\n',
       classification_report(y_test_1,
                             y_pred_1, 
                             target_names=['Outstanding', 'Good', 'Requires Improvement', 'Inadequate']))
-
-
-# In[50]:
-
 
 print('\tClassification Report for Tuned Decision Tree :\n\n',
       classification_report(y_test_3,
@@ -1277,10 +1041,6 @@ print('\tClassification Report for Tuned Decision Tree :\n\n',
 
 
 # #### Permuation importance
-
-# In[51]:
-
-
 permutation_importance_base_tree = permutation_importance(unpruned_tree, 
                                                           X_train_1, 
                                                           y_train_1, 
@@ -1294,9 +1054,6 @@ feat_importances_base_tree = pd.DataFrame(permutation_importance_base_tree.impor
 feat_importances_base_tree.reset_index(inplace=True)
 feat_importances_base_tree.columns = ['Feature', 'Importance']
 feat_importances_base_tree['Model'] = 'Base Tree'
-
-
-# In[52]:
 
 
 permutation_importance_pruned_tree = permutation_importance(pruned_tree, 
@@ -1315,27 +1072,15 @@ feat_importances_tuned_tree.columns = ['Feature', 'Importance']
 feat_importances_tuned_tree['Model'] = 'Tuned Tree'
 
 
-# In[53]:
-
-
 feature_importances_decision_trees = pd.concat([feat_importances_base_tree, 
                                                 feat_importances_tuned_tree], 
                                                axis=0, 
                                                ignore_index=True)
 
-
-# #  
-
-# # Model 2: KNN 
-
+# Model 2: KNN 
 # https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
 
 # ### Base Model
-
-# In[54]:
-
-
-# Base model
 knn_1 = KNeighborsClassifier() 
 
 # Train model
@@ -1362,10 +1107,6 @@ print("Mean accuracy:", round(accuracy, 3) * 100 , '%')
 
 
 # ### Grid search
-
-# In[58]:
-
-
 startTime = time.time()
 
 # Create KNN classifier object
@@ -1411,10 +1152,6 @@ print('Execution time in seconds: ' + str(executionTime))
 
 
 # ### Tuned Model
-
-# In[55]:
-
-
 # Create KNN classifier object with tuned hyperparameters
 tuned_KNN = KNeighborsClassifier(algorithm = 'auto',
                                  leaf_size = 1,
@@ -1443,18 +1180,10 @@ print("Mean accuracy:", round(mean_accuracy, 2) * 100 , '%')
 
 
 # ### Classification report
-
-# In[56]:
-
-
 print('\tClassification Report for Base KNN :\n\n',
       classification_report(y_test_1,
                             y_pred_1, 
                             target_names=['Outstanding', 'Good', 'Requires Improvement', 'Inadequate']))
-
-
-# In[57]:
-
 
 print('\tClassification Report for Tuned KNN :\n\n',
       classification_report(y_test_3,
@@ -1463,10 +1192,6 @@ print('\tClassification Report for Tuned KNN :\n\n',
 
 
 # ### Permutation importance
-
-# In[58]:
-
-
 permutation_importance_base_knn = permutation_importance(knn_1, 
                                                          X_train_1, 
                                                          y_train_1, 
@@ -1480,9 +1205,6 @@ permutation_importance_base_knn = pd.DataFrame(permutation_importance_base_knn.i
 permutation_importance_base_knn.reset_index(inplace=True)
 permutation_importance_base_knn.columns = ['Feature', 'Importance']
 permutation_importance_base_knn['Model'] = 'Base KNN'
-
-
-# In[59]:
 
 
 permutation_importance_tuned_knn = permutation_importance(tuned_KNN, 
@@ -1499,27 +1221,13 @@ permutation_importance_tuned_knn.reset_index(inplace=True)
 permutation_importance_tuned_knn.columns = ['Feature', 'Importance']
 permutation_importance_tuned_knn['Model'] = 'Tuned KNN'
 
-
-# In[60]:
-
-
 feature_importances_knn = pd.concat([permutation_importance_base_knn, 
                                      permutation_importance_tuned_knn], 
                                     axis=0, 
                                     ignore_index=True)
 
-
-# #  
-
 # # Model 3: Logistic Regression
-
 # https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html
-
-# ### Base Model
-
-# In[64]:
-
-
 # Base model
 logreg_1 = LogisticRegressionCV(random_state = random_seed, 
                                 max_iter = 1000, 
@@ -1549,10 +1257,6 @@ print("Mean accuracy:", round(accuracy, 2) * 100 , '%')
 
 
 # ### Grid search
-
-# In[66]:
-
-
 startTime = time.time()
 
 # Create new model using a grid search
@@ -1603,10 +1307,6 @@ print('Execution time in seconds: ' + str(executionTime))
 
 
 # ### Tuned Model
-
-# In[65]:
-
-
 # Create Logistic Regression classifier object with pruning
 logreg_2 = LogisticRegressionCV(Cs = 9,
                                 dual = False,
@@ -1641,18 +1341,10 @@ print("Mean accuracy =", round(mean_accuracy,3) * 100 , '%')
 
 
 # ### Classification report
-
-# In[66]:
-
-
 print('\tClassification Report for Base Logistic Regression :\n\n',
       classification_report(y_test_1,
                             y_pred_1, 
                             target_names=['Outstanding', 'Good', 'Requires Improvement', 'Inadequate']))
-
-
-# In[67]:
-
 
 print('\tClassification Report for Tuned Logistic Regression :\n\n',
       classification_report(y_test_3,
@@ -1661,10 +1353,6 @@ print('\tClassification Report for Tuned Logistic Regression :\n\n',
 
 
 # ### Permutation importance
-
-# In[68]:
-
-
 feat_importances_logistic_base = permutation_importance(logreg_1, 
                                                         X_test_1, 
                                                         y_test_1, 
@@ -1678,10 +1366,6 @@ perm_importance_log_base = pd.DataFrame({
 
 perm_importance_log_base['Model'] = 'Base Logistic Regression'
 
-
-# In[69]:
-
-
 feat_importances_logistic_tuned = permutation_importance(logreg_2, X_test_3, y_test_3, n_repeats=30, random_state=42, n_jobs=-1)
 perm_importance_log_tuned = pd.DataFrame({
     'Feature': X.columns,
@@ -1690,28 +1374,14 @@ perm_importance_log_tuned = pd.DataFrame({
 
 perm_importance_log_tuned['Model'] = 'Tuned Logistic Regression'
 
-
-# In[70]:
-
-
 feature_importances_logistic_regression = pd.concat([perm_importance_log_base, 
                                                      perm_importance_log_tuned], 
                                                     axis=0, 
                                                     ignore_index=True)
 
-
-# #  
-
 # # Model 4: Support Vector Classifier
-# 
-
 # https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC
-
 # ### Base Model
-
-# In[71]:
-
-
 # Create SVC classifier object
 svc_1 = SVC(random_state = random_seed)
 
@@ -1737,10 +1407,6 @@ print("Mean accuracy:", round(mean_accuracy, 3) * 100 , '%')
 
 
 # ### Grid search
-
-# In[97]:
-
-
 startTime = time.time()
 
 # Create new model using a grid search
@@ -1792,10 +1458,6 @@ print('Execution time in seconds: ' + str(executionTime))
 
 
 # ### Tuned Model
-
-# In[72]:
-
-
 # Create SVC classifier object with pruning
 svc_2 = SVC(C = 7,
             class_weight = None,
@@ -1834,17 +1496,10 @@ print("Mean accuracy:", round(mean_accuracy, 3) * 100 , '%')
 
 
 # ### Classification report
-
-# In[73]:
-
-
 print('\tClassification Report for base SVC :\n\n',
       classification_report(y_test_1,
                             y_pred_1, 
                             target_names=['Outstanding', 'Good', 'Requires Improvement', 'Inadequate']))
-
-
-# In[74]:
 
 
 print('\tClassification Report for tuned SVC :\n\n',
@@ -1854,10 +1509,6 @@ print('\tClassification Report for tuned SVC :\n\n',
 
 
 # ### Permutation importance
-
-# In[75]:
-
-
 permutation_importance_base_svc = permutation_importance(svm_1, 
                                                          X_train_1, 
                                                          y_train_1, 
@@ -1871,9 +1522,6 @@ permutation_importance_base_svc = pd.DataFrame(permutation_importance_base_svc.i
 permutation_importance_base_svc.reset_index(inplace=True)
 permutation_importance_base_svc.columns = ['Feature', 'Importance']
 permutation_importance_base_svc['Model'] = 'Base SVM'
-
-
-# In[76]:
 
 
 permutation_importance_tuned_svc = permutation_importance(svc_2, 
@@ -1890,27 +1538,14 @@ permutation_importance_tuned_svc.reset_index(inplace=True)
 permutation_importance_tuned_svc.columns = ['Feature', 'Importance']
 permutation_importance_tuned_svc['Model'] = 'Tuned SVM'
 
-
-# In[77]:
-
-
 feature_importances_svc = pd.concat([permutation_importance_base_svc, 
                                      permutation_importance_tuned_svc], 
                                     axis=0, 
                                     ignore_index=True)
 
-
-# #  
-
 # # Model 5: Random Forest
-
 # https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
-
 # ### Base Model
-
-# In[78]:
-
-
 # Create random forest classifier object 
 random_forest_1 = RandomForestClassifier(random_state = random_seed)
 
@@ -1935,10 +1570,6 @@ print("Mean accuracy:", round(mean_accuracy, 3) * 100 , '%')
 
 
 # ### Grid search
-
-# In[82]:
-
-
 startTime = time.time()
 
 # Create random forest classifier object
@@ -1985,10 +1616,6 @@ print('Execution time in seconds: ' + str(executionTime))
 
 
 # ### Tuned Model
-
-# In[98]:
-
-
 # Create RandomForestClassifier with peak hyperparameters
 random_forest_2 = RandomForestClassifier(ccp_alpha = 0.002,
                                          class_weight = 'balanced_subsample',
@@ -2019,18 +1646,10 @@ print("Accuracy:", round(mean_accuracy, 3) * 100 , '%')
 
 
 # ### Classification report
-
-# In[80]:
-
-
 print('\tClassification Report for base Random Forest :\n\n',
       classification_report(y_test_1,
                             y_pred_1, 
                             target_names=['Outstanding', 'Good', 'Requires Improvement', 'Inadequate']))
-
-
-# In[99]:
-
 
 print('\tClassification Report for tuned Random Forest :\n\n',
       classification_report(y_test_3,
@@ -2039,10 +1658,6 @@ print('\tClassification Report for tuned Random Forest :\n\n',
 
 
 # ### Permutation importance
-
-# In[83]:
-
-
 permutation_importance_base_random_forest = permutation_importance(random_forest_1, 
                                                                    X_train_1, 
                                                                    y_train_1, 
@@ -2056,9 +1671,6 @@ permutation_importance_base_random_forest = pd.DataFrame(permutation_importance_
 permutation_importance_base_random_forest.reset_index(inplace=True)
 permutation_importance_base_random_forest.columns = ['Feature', 'Importance']
 permutation_importance_base_random_forest['Model'] = 'Base Random Forest'
-
-
-# In[84]:
 
 
 permutation_importance_tuned_random_forest = permutation_importance(random_forest_2, 
@@ -2076,29 +1688,17 @@ permutation_importance_tuned_random_forest.columns = ['Feature', 'Importance']
 permutation_importance_tuned_random_forest['Model'] = 'Tuned Random Forest'
 
 
-# In[85]:
-
-
 feature_importances_random_forest = pd.concat([permutation_importance_base_random_forest, 
                                                permutation_importance_tuned_random_forest], 
                                               axis=0, 
                                               ignore_index=True)
 
-
-# #  
-
-# # Saving best model
-
+# Saving best model
 # import joblib
-# 
 # filename = 'tuned_svc.sav'
 # joblib.dump(svc_2, filename)
 
 # # Total Permutation Importance
-
-# In[86]:
-
-
 all_permutation_importances = pd.concat([feature_importances_random_forest, 
                                          feature_importances_decision_trees,
                                          feature_importances_knn,
@@ -2107,15 +1707,7 @@ all_permutation_importances = pd.concat([feature_importances_random_forest,
                                         axis=0, 
                                         ignore_index=True)
 
-
-# In[87]:
-
-
 top_5_features = all_permutation_importances.groupby('Model').apply(lambda x: x.nlargest(5, 'Importance')).reset_index(drop=True)
-
-
-# In[88]:
-
 
 fig, ax = plt.subplots(figsize=(15,7))
 
@@ -2134,20 +1726,9 @@ ax.legend(loc="upper right")
 plt.show()
 
 
-# In[89]:
-
-
 all_importances = all_permutation_importances.groupby(['Feature'])['Importance'].mean().reset_index()
 
-
-# In[90]:
-
-
 ordered_total = all_importances.sort_values(by = 'Importance', ascending = False).head(5)
-
-
-# In[91]:
-
 
 fig, ax = plt.subplots(figsize=(15,7))
 
@@ -2160,18 +1741,9 @@ sns.barplot(x='Feature',
             y='Importance', 
             data=ordered_total) 
 
-#plt.xticks(rotation=90)
-
 plt.show()
 
-
-# In[92]:
-
-
 unordered_total = all_importances.sort_values(by = 'Importance', ascending = True).head(5)
-
-
-# In[93]:
 
 
 fig, ax = plt.subplots(figsize=(15,7))

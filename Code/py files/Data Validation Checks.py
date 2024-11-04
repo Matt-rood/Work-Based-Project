@@ -1,25 +1,15 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 # # Import Packages
-
-# In[37]:
-
-
 import pandas as pd
 import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 import warnings
 warnings.filterwarnings('ignore')
 
 
 # # Create user defined funtions
-
-# In[38]:
-
-
 def Clean(df):
     for df in dataframes:
         for col in df.columns:
@@ -37,11 +27,8 @@ def Join(df, df1, df2, df3, df4):
     .merge(df4, on='URN', suffixes=('', '_remove'))
     return new_df
 
-filepath = 'D:\\Schools Data\\Data\\'
-#filepath = 'C:\\Users\\matth\\OneDrive\\Documents\\University\\Schools Data\\Data\\'
-
-
-# In[39]:
+#filepath = 'https://github.com//Matt-rood//Work-Based-Project//tree//main//Data//'
+filepath = 'C:\\Users\\matth\\OneDrive\\Documents\\University\\Schools Data\\Data\\'
 
 
 from collections import Counter
@@ -70,10 +57,6 @@ def cumulatively_categorise(column, threshold = 0.75, return_categories_list = T
 # # Import the data
 
 # ## 2010-11
-
-# In[89]:
-
-
 # Import the KS4 information
 ks4_2010_2011 = pd.read_csv(filepath + '2010-2011\\england_ks4final.csv', low_memory = False)
 
@@ -125,10 +108,6 @@ ks4_2010_2011 = ks4_2010_2011[['URN',
 
 
 # ## 2011-12
-
-# In[90]:
-
-
 # Import the KS4 information
 ks4_2011_2012 = pd.read_csv(filepath + '2011-2012\\england_ks4final.csv', low_memory = False)
 
@@ -179,10 +158,6 @@ ks4_2011_2012 = ks4_2011_2012[['URN',
 
 
 # ## 2012-13
-
-# In[91]:
-
-
 # Import the KS4 information
 ks4_2012_2013 = pd.read_csv(filepath + '2012-2013\\england_ks4final.csv',  low_memory = False)
 
@@ -234,10 +209,6 @@ ks4_2012_2013 = ks4_2012_2013[['URN',
 
 
 # ## 2013-14
-
-# In[92]:
-
-
 # Import the KS4 information
 ks4_2013_2014 = pd.read_csv(filepath + '2013-2014\\england_ks4final.csv', low_memory = False, encoding='latin-1')
 
@@ -289,10 +260,6 @@ ks4_2013_2014 = ks4_2013_2014[['URN',
 
 
 # ## 2014-15
-
-# In[93]:
-
-
 # Import the KS4 information
 ks4_2014_2015 = pd.read_csv(filepath + '2014-2015\\england_ks4final.csv', low_memory = False)
 
@@ -344,10 +311,6 @@ ks4_2014_2015 = ks4_2014_2015[['URN',
 
 
 # ## 2015-16
-
-# In[94]:
-
-
 # Import the KS4 information
 ks4_2015_2016 = pd.read_csv(filepath + '2015-2016\\england_ks4final.csv', low_memory = False)
 
@@ -399,10 +362,6 @@ ks4_2015_2016 = ks4_2015_2016[['URN',
 
 
 # ## 2016-17
-
-# In[95]:
-
-
 # Import the KS4 information
 ks4_2016_2017 = pd.read_csv(filepath + '2016-2017\\england_ks4final.csv', low_memory = False)
 
@@ -454,10 +413,6 @@ ks4_2016_2017 = ks4_2016_2017[['URN',
 
 
 # ## 2017-18
-
-# In[96]:
-
-
 # Import the KS4 information
 ks4_2017_2018 = pd.read_csv(filepath + '2017-2018\\england_ks4final.csv', low_memory = False)
 
@@ -509,10 +464,6 @@ ks4_2017_2018 = ks4_2017_2018[['URN',
 
 
 # ## 2018-19
-
-# In[97]:
-
-
 # Import the KS4 information
 ks4_2018_2019 = pd.read_csv(filepath + '2018-2019\\england_ks4final.csv', low_memory = False)
 
@@ -561,9 +512,6 @@ ks4_2018_2019 = ks4_2018_2019[['URN',
                                'PTFSM6CLA1A', 
                                'Pupil:     Teacher Ratio',
                                'MINORGROUP']]
-
-
-# In[ ]:
 
 
 # 2013/14
@@ -633,9 +581,6 @@ dict = {'PT5EM_94': 'PTAC5EM',
 ks4_2018_2019.rename(columns=dict, inplace=True)
 
 
-# In[ ]:
-
-
 stacked_data = pd.concat([ks4_2011_2012, 
                           ks4_2012_2013,
                           ks4_2013_2014,
@@ -649,18 +594,11 @@ stacked_data = pd.concat([ks4_2011_2012,
 len(stacked_data)
 
 
-# In[ ]:
-
-
 nulls = stacked_data.isna().sum().to_frame()
 nulls = nulls.rename(columns= {0: 'nulls'})
 
 zeros = stacked_data.isin([0]).sum(axis=0).to_frame()
 zeros = zeros.rename(columns= {0: 'zeros'})
-
-
-# In[57]:
-
 
 # Check missingness in categorical variables
 categorical_variables = ['NFTYPE',
@@ -674,10 +612,6 @@ all_categorical_variables = stacked_data[categorical_variables]
 
 all_categorical_variables.isna().sum()
 
-
-# In[58]:
-
-
 # Impute categorical variables
 stacked_data["RELDENOM"].fillna("Does not apply", inplace = True) 
 stacked_data["ADMPOL"].fillna("Does not apply", inplace = True) 
@@ -687,10 +621,6 @@ stacked_data_clean = stacked_data.dropna()
 
 
 # # Read in and clean Ofsted Data 
-
-# In[107]:
-
-
 latest_ratings_2019 = pd.read_csv(filepath + 'Management_information_-_schools_Table1_-_31_August_2019.csv',
                                   encoding = 'cp1252',
                                   low_memory = False)
@@ -703,10 +633,6 @@ latest_ratings = pd.concat([latest_ratings_2019,
                             latest_ratings_2020], 
                            ignore_index = False)
 
-
-# In[108]:
-
-
 # Replace spaces in column names with '_'
 latest_ratings.columns = latest_ratings.columns.str.replace(' ', '_')
 
@@ -718,10 +644,6 @@ latest_ratings = latest_ratings[(latest_ratings['Event_type_grouping'] == 'Schoo
 # Select only Secondary schools
 latest_ratings = latest_ratings[(latest_ratings['Ofsted_phase'] == 'Secondary')]
 
-
-# In[109]:
-
-
 latest_ratings = latest_ratings[['URN',
                                  'Inspection_end_date',
                                  'Overall_effectiveness', # Target variable
@@ -732,10 +654,6 @@ latest_ratings = latest_ratings[['URN',
 latest_ratings["Previous_category_of_concern"].fillna("No concern", inplace = True)
 
 latest_ratings = latest_ratings.dropna()
-
-
-# In[110]:
-
 
 # Split the year column into day, month and year
 latest_ratings[["DAY", "MONTH", "YEAR"]] = latest_ratings["Inspection_end_date"].str.split("/", expand = True)
@@ -763,10 +681,6 @@ latest_ratings['DAYS_SINCE_LAST'] = (latest_ratings['Inspection_end_date'] - lat
 # Do YEAR - 1
 latest_ratings['LINKAGE_YEAR'] = latest_ratings['ACADEMIC_YEAR'] - 1
 
-
-# In[111]:
-
-
 final_table = pd.merge(stacked_data_clean, 
                        latest_ratings, 
                        how='left', 
@@ -789,14 +703,8 @@ final_table["RELDENOM"].fillna("Does not apply", inplace = True)
 final_table = final_table.dropna()
 final_table = final_table.drop_duplicates()
 
-len(final_table)
-
-
-# In[112]:
-
-
 # Import IDACI lookup 
-idaci_quintiles = pd.read_csv('C:\\Users\\roodm\\OneDrive - Office for National Statistics\\University\\Year 3\\Work Based Project\\2019-deprivation-by-postcode.csv')
+idaci_quintiles = pd.read_csv('C:\\Users\\matth\\OneDrive\\Documents\\University\\Third Year\\Work Based Project\\Final\\Code\\2019-deprivation-by-postcode.csv')
 
 idaci_quintiles = idaci_quintiles[['Postcode', 'IDACI Decile']]
 
@@ -813,15 +721,10 @@ final_table = final_table.drop(['POSTCODE',
                                 'Postcode'], 
                                axis=1)
 
-len(final_table)
-
 
 # # Identifying suitable categorical variables by looking at their distributions and importance
 
 # #### Selecting all categorical variables in the data
-
-# In[65]:
-
 
 categorical_variables = ['MINORGROUP',
                          'NFTYPE',
@@ -834,15 +737,9 @@ categorical_variables = ['MINORGROUP',
 all_categorical_variables = final_table[categorical_variables]
 
 
-# In[66]:
-
-
 remapped_MINORGROUP = {'Maintained school': "Maintained School"}
 
 all_categorical_variables = all_categorical_variables.replace({"MINORGROUP": remapped_MINORGROUP})
-
-
-# In[67]:
 
 
 remapped_RELDENOM = {'Roman Catholic/Church of England': "Christian",
@@ -854,9 +751,6 @@ remapped_RELDENOM = {'Roman Catholic/Church of England': "Christian",
                     }
 
 all_categorical_variables = all_categorical_variables.replace({"RELDENOM": remapped_RELDENOM})
-
-
-# In[68]:
 
 
 fig, axs = plt.subplots(4, 2, 
@@ -879,25 +773,16 @@ plt.tight_layout()
 plt.show()
 
 
-# In[69]:
-
-
 categorical_variables = ['GENDER',
                          'RELDENOM']
 
 selected_dfs = final_table[categorical_variables]
 
 
-# In[70]:
-
-
 remapped_gender = {'Boys': "Not mixed", 
                    'Girls': "Not mixed"}
 
 selected_dfs = selected_dfs.replace({"GENDER": remapped_gender})
-
-
-# In[71]:
 
 
 remapped_reldenom = {'Does not apply': "Not religious", 
@@ -913,9 +798,6 @@ remapped_reldenom = {'Does not apply': "Not religious",
                      'None' : 'Not religious'}
 
 selected_dfs = selected_dfs.replace({"RELDENOM": remapped_reldenom})
-
-
-# In[72]:
 
 
 fig, axs = plt.subplots(2,1 ,
@@ -935,18 +817,12 @@ plt.tight_layout()
 plt.show()
 
 
-# In[73]:
-
-
 categorical_variables_ofsted = ['Overall_effectiveness',
                                 'Previous_full_inspection_overall_effectiveness',
                                 'Previous_category_of_concern',
                                 'IDACI Decile']
 
 selected_dfs_ofsted = final_table[categorical_variables_ofsted]
-
-
-# In[74]:
 
 
 fig, axs = plt.subplots(2, 2, 
@@ -966,9 +842,6 @@ plt.tight_layout()
 plt.show()
 
 
-# In[75]:
-
-
 remapped_reldenom = {'COMP': "Comprehensive", 
                      'SEL': "Selective",
                      'MOD' : "Comprehensive",
@@ -977,9 +850,6 @@ remapped_reldenom = {'COMP': "Comprehensive",
                      'Non-selective' : 'Comprehensive'}
 
 selected_dfs = selected_dfs.replace({"ADMPOL": remapped_reldenom})
-
-
-# In[76]:
 
 
 remapped_reldenom = {'Roman Catholic': "Religious",
@@ -997,16 +867,10 @@ remapped_reldenom = {'Roman Catholic': "Religious",
 selected_dfs = selected_dfs.replace({"RELDENOM": remapped_reldenom})
 
 
-# In[77]:
-
-
 post_16 = {0.0 : "No",
            1.0 : 'Yes'} 
 
 selected_dfs = selected_dfs.replace({"ISPOST16": post_16})
-
-
-# In[78]:
 
 
 school_types = {'Maintained school' : "Maintained School",
@@ -1014,9 +878,6 @@ school_types = {'Maintained school' : "Maintained School",
                'Academy' : 'All Academy Types'} 
 
 selected_dfs = selected_dfs.replace({"MINORGROUP": school_types})
-
-
-# In[79]:
 
 
 fig, axs = plt.subplots(2, 1, 
@@ -1036,9 +897,6 @@ plt.tight_layout()
 plt.show()
 
 
-# In[80]:
-
-
 previous_category_concern = {'SM' : "Previous Concerns", 
                             'SWK' : "Previous Concerns",
                             'Special Measures' : "Previous Concerns", 
@@ -1049,75 +907,42 @@ selected_dfs = selected_dfs.replace({"Previous_category_of_concern": previous_ca
 
 
 # # The 9-1 grading was implemented in 2017 for English and Maths GCSEs, the following section compares KS4 data for pre and post grading data
-
 # ## Import data, selecting KS4 variables of inital interest
 
-# In[164]:
-
+# Here, the data will need to be reimported, using the original variables names. 
 
 # For 2010/11
 ks4_2010_2011_compare = ks4_2010_2011[['PTAC5EM',
                                        'PTL2BASICS']]
 
-
-# In[165]:
-
-
 # For 2011/12
 ks4_2011_2012_compare = ks4_2011_2012[['PTAC5EM',
                                        'PTL2BASICS']]
-
-
-# In[166]:
-
 
 # For 2012/13
 ks4_2012_2013_compare = ks4_2012_2013[['PTAC5EM',
                                        'PTL2BASICS']]
 
-
-# In[167]:
-
-
 # For 2013/14
 ks4_2013_2014_compare = ks4_2013_2014[['PTAC5EM_PTQ',
                                        'PTL2BASICS_PTQ']]
-
-
-# In[168]:
-
 
 # For 2014/15
 ks4_2014_2015_compare = ks4_2014_2015[['PTAC5EM_PTQ_EE',
                                        'PTL2BASICS_PTQ_EE']]
 
-
-# In[169]:
-
-
 # For 2015/16
 ks4_2015_2016_compare = ks4_2015_2016[['PTAC5EM_PTQ_EE',
                                        'PTL2BASICS_LL_PTQ_EE']]
-
-
-# In[170]:
-
 
 # For 2016/17
 ks4_2016_2017_compare = ks4_2016_2017[['PT5EM_94',
                                        'PTL2BASICS_94']]
 
 
-# In[171]:
-
-
 # For 2017/18
 ks4_2017_2018_compare = ks4_2017_2018[['PT5EM_94',
                                        'PTL2BASICS_94']]
-
-
-# In[172]:
-
 
 # For 2018/19
 ks4_2018_2019_compare = ks4_2018_2019[['PT5EM_94',
@@ -1125,10 +950,6 @@ ks4_2018_2019_compare = ks4_2018_2019[['PT5EM_94',
 
 
 # ## Create Test Plots for KS4 variables (Maths and English inclusive)
-
-# In[174]:
-
-
 dfs = [ks4_2010_2011_compare, ks4_2011_2012_compare, ks4_2012_2013_compare, ks4_2013_2014_compare, 
        ks4_2014_2015_compare, ks4_2015_2016_compare, ks4_2016_2017_compare, ks4_2017_2018_compare, 
        ks4_2018_2019_compare]
@@ -1149,9 +970,6 @@ for df in dfs:
     for col in df.columns:
         vals = [0]
         df[col] = df[col][~df[col].isin(vals)]
-
-
-# In[175]:
 
 
 dfs_and_columns = [(ks4_2010_2011_compare, 'PTAC5EM'), 
@@ -1176,10 +994,6 @@ for i, (df, column) in enumerate(dfs_and_columns):
 plt.tight_layout()
 plt.show()
 
-
-# In[176]:
-
-
 dfs_and_columns = [(ks4_2010_2011_compare, 'PTL2BASICS'), 
                    (ks4_2011_2012_compare, 'PTL2BASICS'), 
                    (ks4_2012_2013_compare, 'PTL2BASICS'), 
@@ -1202,9 +1016,6 @@ for i, (df, column) in enumerate(dfs_and_columns):
                                  
 plt.tight_layout()
 plt.show()
-
-
-# In[ ]:
 
 
 
