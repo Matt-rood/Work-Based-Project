@@ -7,8 +7,8 @@ get_ipython().run_line_magic('config', "InlineBackend.figure_format = 'png'")
 
 
 # # Create user defined funtions
-# ### Clean() - removes all string values from integer columns
-def Clean(df):
+# ### clean() - removes all string values from integer columns
+def clean(df):
     for df in dataframes:
         for col in df.columns:
             vals = ['nan', 'NP', 'NEW', 'SUPP', 'NE', 'NSE', 'NA', 'NaT', 'NAT', '', ' ', 'DNS', 'NAT_TOTSF']
@@ -19,8 +19,8 @@ def Clean(df):
                 df[col] = df[col].astype(float)   
 
 
-# ### Join() - joins all academic years dataframes together
-def Join(df, df1, df2, df3, df4):
+# ### join() - joins all academic years dataframes together
+def join(df, df1, df2, df3, df4):
     new_df = df.merge(df1, on='URN', suffixes=('', '_remove'))\
     .merge(df2, on='URN', suffixes=('', '_remove'))\
     .merge(df3, on='URN', suffixes=('', '_remove'))\
@@ -79,10 +79,10 @@ ks4_2010_2011['ACADEMIC_YEAR'] = 2011
 dataframes = [ks4_2010_2011, spine_2010_2011, abs_2010_2011, census_2010_2011, teacher_info_2010_2011]
 
 # Use the function to clean the dataframes
-Clean(dataframes)
+clean(dataframes)
 
-# Join all tables together
-ks4_2010_2011 = Join(ks4_2010_2011, spine_2010_2011, abs_2010_2011, census_2010_2011, teacher_info_2010_2011)
+# join all tables together
+ks4_2010_2011 = join(ks4_2010_2011, spine_2010_2011, abs_2010_2011, census_2010_2011, teacher_info_2010_2011)
 
 # Select the relevant columns
 ks4_2010_2011 = ks4_2010_2011[['URN',
@@ -129,10 +129,10 @@ ks4_2011_2012['ACADEMIC_YEAR'] = 2012
 dataframes = [ks4_2011_2012, spine_2011_2012, abs_2011_2012, census_2011_2012, teacher_info_2011_2012]
 
 # Use the function to clean the dataframes
-Clean(dataframes)
+clean(dataframes)
                     
 # Join all tables together
-ks4_2011_2012 = Join(ks4_2011_2012, spine_2011_2012, abs_2011_2012, census_2011_2012, teacher_info_2011_2012)
+ks4_2011_2012 = join(ks4_2011_2012, spine_2011_2012, abs_2011_2012, census_2011_2012, teacher_info_2011_2012)
 
 # Select the relevant columns
 ks4_2011_2012 = ks4_2011_2012[['URN',
@@ -179,10 +179,10 @@ ks4_2012_2013['ACADEMIC_YEAR'] = 2013
 dataframes = [ks4_2012_2013, spine_2012_2013, abs_2012_2013, census_2012_2013, teacher_info_2012_2013]
 
 # Use the function to clean the dataframes
-Clean(dataframes)
+clean(dataframes)
 
-# Join all tables together
-ks4_2012_2013 = Join(ks4_2012_2013, spine_2012_2013, abs_2012_2013, census_2012_2013, teacher_info_2012_2013)
+# join all tables together
+ks4_2012_2013 = join(ks4_2012_2013, spine_2012_2013, abs_2012_2013, census_2012_2013, teacher_info_2012_2013)
  
 # Select the relevant columns
 ks4_2012_2013 = ks4_2012_2013[['URN',
@@ -229,10 +229,10 @@ ks4_2013_2014['ACADEMIC_YEAR'] = 2014
 dataframes = [ks4_2013_2014, spine_2013_2014, abs_2013_2014, census_2013_2014, teacher_info_2013_2014]
 
 # Use the function to clean the dataframes
-Clean(dataframes)
+clean(dataframes)
 
-# Join all tables together
-ks4_2013_2014 = Join(ks4_2013_2014, spine_2013_2014, abs_2013_2014, census_2013_2014, teacher_info_2013_2014)
+# join all tables together
+ks4_2013_2014 = join(ks4_2013_2014, spine_2013_2014, abs_2013_2014, census_2013_2014, teacher_info_2013_2014)
 
 # Select the relevant columns
 ks4_2013_2014 = ks4_2013_2014[['URN',
@@ -279,10 +279,10 @@ ks4_2014_2015['ACADEMIC_YEAR'] = 2015
 dataframes = [ks4_2014_2015, spine_2014_2015, census_2014_2015, teacher_info_2014_2015, abs_2014_2015]
 
 # Use the function to clean the dataframes
-Clean(dataframes)
+clean(dataframes)
 
-# Join all tables together
-ks4_2014_2015 = Join(ks4_2014_2015, spine_2014_2015, census_2014_2015, teacher_info_2014_2015, abs_2014_2015)
+# join all tables together
+ks4_2014_2015 = join(ks4_2014_2015, spine_2014_2015, census_2014_2015, teacher_info_2014_2015, abs_2014_2015)
 
 # Select the relevant columns
 ks4_2014_2015 = ks4_2014_2015[['URN',
@@ -329,10 +329,10 @@ ks4_2015_2016['ACADEMIC_YEAR'] = 2016
 dataframes = [ks4_2015_2016, spine_2015_2016, abs_2015_2016, census_2015_2016, teacher_info_2015_2016]
 
 # Use the function to clean the dataframes
-Clean(dataframes)
+clean(dataframes)
 
-# Join all tables together
-ks4_2015_2016 = Join(ks4_2015_2016, spine_2015_2016, abs_2015_2016, census_2015_2016, teacher_info_2015_2016)
+# join all tables together
+ks4_2015_2016 = join(ks4_2015_2016, spine_2015_2016, abs_2015_2016, census_2015_2016, teacher_info_2015_2016)
 
 # Select the relevant columns
 ks4_2015_2016 = ks4_2015_2016[['URN',
@@ -379,10 +379,10 @@ ks4_2016_2017['ACADEMIC_YEAR'] = 2017
 dataframes = [ks4_2016_2017, spine_2016_2017, census_2016_2017, teacher_info_2016_2017, abs_2016_2017]
 
 # Use the function to clean the dataframes
-Clean(dataframes)
+clean(dataframes)
 
-# Join all tables together
-ks4_2016_2017 = Join(ks4_2016_2017, spine_2016_2017, census_2016_2017, teacher_info_2016_2017, abs_2016_2017)
+# join all tables together
+ks4_2016_2017 = join(ks4_2016_2017, spine_2016_2017, census_2016_2017, teacher_info_2016_2017, abs_2016_2017)
 
 # Select the relevant columns
 ks4_2016_2017 = ks4_2016_2017[['URN',
@@ -429,10 +429,10 @@ ks4_2017_2018['ACADEMIC_YEAR'] = 2018
 dataframes = [ks4_2017_2018, spine_2017_2018, abs_2017_2018, census_2017_2018, teacher_info_2017_2018]
 
 # Use the function to clean the dataframes
-Clean(dataframes)
+clean(dataframes)
 
-# Join all tables together
-ks4_2017_2018 = Join(ks4_2017_2018, spine_2017_2018, abs_2017_2018, census_2017_2018, teacher_info_2017_2018) 
+# join all tables together
+ks4_2017_2018 = join(ks4_2017_2018, spine_2017_2018, abs_2017_2018, census_2017_2018, teacher_info_2017_2018) 
 
 # Select the relevant columns
 ks4_2017_2018 = ks4_2017_2018[['URN',
@@ -479,10 +479,10 @@ ks4_2018_2019['ACADEMIC_YEAR'] = 2019
 dataframes = [ks4_2018_2019, spine_2018_2019, abs_2018_2019, census_2018_2019, teacher_info_2018_2019]
 
 # Use the function to clean the dataframes
-Clean(dataframes)
+clean(dataframes)
 
-# Join all tables together
-ks4_2018_2019 = Join(ks4_2018_2019, spine_2018_2019, abs_2018_2019, census_2018_2019, teacher_info_2018_2019)
+# join all tables together
+ks4_2018_2019 = join(ks4_2018_2019, spine_2018_2019, abs_2018_2019, census_2018_2019, teacher_info_2018_2019)
 
 # Select the relevant columns
 ks4_2018_2019 = ks4_2018_2019[['URN',
