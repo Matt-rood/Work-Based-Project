@@ -1,13 +1,5 @@
 # # Import Packages
-import pandas as pd
-import seaborn as sns
-import numpy as np
-import matplotlib.pyplot as plt
-import os
-
-import warnings
-warnings.filterwarnings('ignore')
-
+from settings import * 
 
 # # Create user defined funtions
 def clean(df):

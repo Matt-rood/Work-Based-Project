@@ -1,10 +1,5 @@
 # # Import packages
-get_ipython().run_line_magic('run', '"settings.py"')
-
-get_ipython().run_line_magic('reload_ext', 'autoreload')
-get_ipython().run_line_magic('autoreload', '2')
-get_ipython().run_line_magic('config', "InlineBackend.figure_format = 'png'")
-
+from settings import * 
 
 # # Create user defined funtions
 # ### clean() - removes all string values from integer columns

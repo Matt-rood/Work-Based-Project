@@ -1,10 +1,4 @@
-get_ipython().run_line_magic('run', '"settings.py"')
-
-import joblib
-
-get_ipython().run_line_magic('reload_ext', 'autoreload')
-get_ipython().run_line_magic('autoreload', '2')
-get_ipython().run_line_magic('config', "InlineBackend.figure_format = 'png'")
+from settings import * 
 
 filepath = 'C:\\Users\\matth\\OneDrive\\Documents\\University\\Third Year\\Work Based Project\\Final\\'
 
@@ -132,10 +126,10 @@ def Interactive_model():
     while True:
         try:
             IDACI = int(input("7. What is the IDACI decile of the school?: \n"))
-            if IDACI == 1 or IDACI == 2 or IDACI == 3 or IDACI == 4 or IDACI == 5:
+            if IDACI == 1 or IDACI == 2 or IDACI == 3 or IDACI == 4 or IDACI == 5 or IDACI == 6 or IDACI == 7 or IDACI == 8 or IDACI == 9 or IDACI == 10:
                 break
             else:
-                print("Error: The value must be between 1 and 5. Please try again.\n")
+                print("Error: The value must be between 1 and 10. Please try again.\n")
         except ValueError:
             print("Error: Invalid input. Please enter a whole number.\n")
     if IDACI == 1:
@@ -148,6 +142,16 @@ def Interactive_model():
         framework_df['IDACI_DECILE_4_DUMMY'] = [1]
     if IDACI == 5:
         framework_df['IDACI_DECILE_5_DUMMY'] = [1]  
+    if IDACI == 6:
+        framework_df['IDACI_DECILE_6_DUMMY'] = [1]
+    if IDACI == 7:
+        framework_df['IDACI_DECILE_7_DUMMY'] = [1]
+    if IDACI == 8:
+        framework_df['IDACI_DECILE_8_DUMMY'] = [1]
+    if IDACI == 9:
+        framework_df['IDACI_DECILE_9_DUMMY'] = [1]
+    if IDACI == 10:
+        framework_df['IDACI_DECILE_10_DUMMY'] = [1]
     time.sleep(1)
     
     
@@ -200,7 +204,11 @@ def Interactive_model():
     while True:
         try:
             DAYS_SINCE = int(input("3. How many days has it been since the previous Ofsted inspection?: \n"))
-            break
+            if DAYS_SINCE >= 0:
+                break
+            else:
+                print("Please enter a positive number.")
+
         except ValueError:
             print("Error: Invalid input. Please enter a valid entry.\n")
         except TypeError:
@@ -218,7 +226,10 @@ def Interactive_model():
     while True:
         try:
             KS2APS = float(input("1. What is the average Key stage 2 Points Score of the cohort at the end of key stage 4?: \n"))
-            break
+            if KS2APS > 0:
+                break
+            else:
+                print("Please enter a positive number.")
         except ValueError:
             print("Error: Invalid input. Please enter a valid entry.\n")
         except TypeError:
@@ -229,7 +240,10 @@ def Interactive_model():
     while True:
         try:
             PTAC5EM = float(input("2. What percentage of pupils achieved Level 2 threshold including standard passes 9-4 in English and Maths GCSEs?: \n"))
-            break
+            if PTAC5EM > 0:
+                break
+            else:
+                print("Please enter a positive number.")
         except ValueError:
             print("Error: Invalid input. Please enter a valid entry.\n")
         except TypeError:
@@ -241,7 +255,10 @@ def Interactive_model():
     while True:
         try:
             PTL2BASICS = float(input("3. What percentage of pupils achieved standard 9-4 passes in English and Maths GCSEs?: \n"))
-            break
+            if PTL2BASICS > 0:
+                break
+            else:
+                print("Please enter a positive number.")
         except ValueError:
             print("Error: Invalid input. Please enter a valid entry.\n")
         except TypeError:
@@ -252,7 +269,10 @@ def Interactive_model():
     while True:
         try:
             PTANYQ = float(input("4. What percentage of pupils achieved any qualifications?:\n "))
-            break
+            if PTANYQ > 0:
+                break
+            else:
+                print("Please enter a positive number.")
         except ValueError:
             print("Error: Invalid input. Please enter a valid entry.\n")
         except TypeError:
@@ -263,7 +283,10 @@ def Interactive_model():
     while True:
         try:
             TAVENT_E = float(input("5. What is the average number of GCSE and equivalents entries per pupil?:\n "))
-            break
+            if TAVENT_E > 0:
+                break
+            else:
+                print("Please enter a positive number.")
         except ValueError:
             print("Error: Invalid input. Please enter a valid entry.\n")
         except TypeError:
@@ -275,7 +298,10 @@ def Interactive_model():
     while True:
         try:
             TTAPS = float(input("6. What is the total average point score per pupil?:\n "))
-            break
+            if TTAPS > 0:
+                break
+            else:
+                print("Please enter a positive number.")
         except ValueError:
             print("Error: Invalid input. Please enter a valid entry.\n")
         except TypeError:
@@ -290,7 +316,10 @@ def Interactive_model():
     while True:
         try:
             PERCTOT = float(input("7. What is the overall absence as a percentage?:\n "))
-            break
+            if PERCTOT > 0:
+                break
+            else:
+                print("Please enter a positive number.")
         except ValueError:
             print("Error: Invalid input. Please enter a valid entry.\n")
         except TypeError:
@@ -301,7 +330,10 @@ def Interactive_model():
     while True:
         try:
             PNUMEAL = float(input("8. What percentage of pupils do not have English as their first language?: \n"))
-            break
+            if PNUMEAL > 0:
+                break
+            else:
+                print("Please enter a positive number.")
         except ValueError:
             print("Error: Invalid input. Please enter a valid entry.\n")
         except TypeError:
@@ -312,7 +344,10 @@ def Interactive_model():
     while True:
         try:
             PTFSMCLA = float(input("9. What percentage of pupils are disadvantaged?: \n"))
-            break
+            if PTFSMCLA > 0:
+                break
+            else:
+                print("Please enter a positive number.")
         except ValueError:
             print("Error: Invalid input. Please enter a valid entry.\n")
         except TypeError:
@@ -330,7 +365,10 @@ def Interactive_model():
     while True:
         try:
             SALARY = float(input("1. What is the mean gross salary of full-time teachers?: \n"))
-            break
+            if SALARY > 0:
+                break
+            else:
+                print("Please enter a positive number.")
         except ValueError:
             print("Error: Invalid input. Please enter a valid entry.\n")
         except TypeError:
@@ -341,7 +379,10 @@ def Interactive_model():
     while True:
         try:
             RATPUPTEA = float(input("2. What is the pupil:teacher ratio?: \n"))
-            break
+            if RATPUPTEA > 0:
+                break
+            else:
+                print("Please enter a positive number.")
         except ValueError:
             print("Error: Invalid input. Please enter a valid entry.\n")
         except TypeError:
@@ -355,7 +396,7 @@ def Interactive_model():
     # Drop columns to avoid dummy trap
     dropped_columns = ['ACC_NFTYPE_DUMMY',
                        'REQUIRES_IMPROVEMENT_PREVIOUS',
-                       'IDACI_DECILE_5_DUMMY']
+                       'IDACI_DECILE_2_DUMMY']
     
     framework_df = framework_df.drop(columns = dropped_columns)
     
